@@ -1,0 +1,16 @@
+[
+{
+  "modid": "chatbot",
+  "name": "iKai chatbot",
+  "description": "iKai: hi",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "",
+  "updateUrl": "",
+  "authorList": ["2kai2kai2"],
+  "credits": "",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]

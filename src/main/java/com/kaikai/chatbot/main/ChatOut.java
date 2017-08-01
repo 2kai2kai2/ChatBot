@@ -4,17 +4,24 @@ import java.util.ArrayList;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.text.TextComponentString;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.gameevent.TickEvent.ClientTickEvent;
 import scala.collection.mutable.Queue;
 
-public class ChatOut implements Runnable {
+public class ChatOut {
 	
-	public static int chatdelay = 1; //seconds between chats
+	public static ChatOut chatout = new ChatOut();
+	
+	public ChatOut() {
+		MinecraftForge.EVENT_BUS.register(this);
+	}
+	
+	public int chatdelay = 1; //seconds between chats
 	public static long lastchat = 0;
-	public static ArrayList<String> chatqueue = new ArrayList<String>();
-	public static Thread thread = new Thread();
+	public ArrayList<String> chatqueue = new ArrayList<String>();
 	
-	public static void queue(String s) {
-		if (!thread.isAlive()) {thread.start();}
+	public void queue(String s) {
 		chatqueue.add(s);
 	}
 	
@@ -22,15 +29,16 @@ public class ChatOut implements Runnable {
 		Minecraft.getMinecraft().player.sendChatMessage(s);
 	}
 
-	@Override
-	public void run() {
+	@SubscribeEvent
+	public void ClientTick(ClientTickEvent e) {
+		//System.out.println("tick");
 		if (!chatqueue.isEmpty()) {
 			if (lastchat+(1000*chatdelay) < System.currentTimeMillis()) {
 				chat(chatqueue.get(0));
 				chatqueue.remove(0);
+				lastchat = System.currentTimeMillis();
 			}
 		}
 	}
-	
 	
 }

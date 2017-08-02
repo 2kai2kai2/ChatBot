@@ -27,6 +27,7 @@ public class Main {
 	
 	public static boolean enabled = false; //TODO: make this do something
 	public static String commandword = "ikai:";
+	public static int chatdelay = 1;
 	public static String version = "v.1.0.0A-mc1.12";
 	
 	@EventHandler
@@ -41,8 +42,11 @@ public class Main {
         	
         	Property commandwordprop = config.get(Configuration.CATEGORY_GENERAL, "commandword", "ikai:", "The command word to speak to the chatbot");
         	commandword = commandwordprop.getString();
+        	Property chatdelayprop = config.get(Configuration.CATEGORY_GENERAL, "chatdelay", 1, "How often the chatbot can chat, so to avoid spam");
+        	chatdelay = chatdelayprop.getInt();
         	
         	String[] commandlistprop = config.getStringList("commands", "CommandsList", defaultconfigcom, "A list of simple user set commands. do not use the character ':'");
+        	config.addCustomCategoryComment("CommandsList", "Formatting: \n<command>:<response> \nUse [] around the commands with ',' between to have multiple commands give the same response.");
         	for (int i = 0; i < commandlistprop.length; i++) {
         		//System.out.println(i + commandlistprop[i]);
         		String k = commandlistprop[i].substring(0, commandlistprop[i].indexOf(":")/*-1*/).trim();

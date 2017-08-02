@@ -14,7 +14,9 @@ public class ChatOut {
 	public static ChatOut chatout = new ChatOut();
 	
 	public ChatOut() {
+		chatdelay = Main.chatdelay;
 		MinecraftForge.EVENT_BUS.register(this);
+		
 	}
 	
 	public int chatdelay = 1; //seconds between chats

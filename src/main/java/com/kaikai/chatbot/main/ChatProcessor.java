@@ -13,7 +13,7 @@ public class ChatProcessor {
 			if (text.trim().substring(0, Main.commandword.length()).trim().equalsIgnoreCase(Main.commandword)) {
 				System.out.println("ikai!");
 				
-				if (Main.enabled) {ChatOut.chatout./**/queue/*chat*/(getResponse(text.trim().substring(Main.commandword.length()).toLowerCase().trim()));}
+				if (Main.enabled  &&  getResponse(text.trim().substring(Main.commandword.length()).toLowerCase().trim()) != "") {ChatOut.chatout./**/queue/*chat*/(getResponse(text.trim().substring(Main.commandword.length()).toLowerCase().trim()));}
 				else if (eq( text.trim().substring(Main.commandword.length()).toLowerCase().trim(), new String[]{"enable", "turn on", "un-turn off"} )) {Main.enabled = true; ChatOut.chatout.queue("Chatbot Enabled. Chat \"" + Main.commandword + "\" + your command to use.");}
 				//else {}
 				
